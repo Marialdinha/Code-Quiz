@@ -15,5 +15,6 @@ function countdown() {
     },1000);
   }
   
-  // STARTNG COUNTDOWN
-  countdown();
+//add event listener for start button
+var startBtn = document.querySelector("#start");
+startBtn.addEventListener("click", countdown);
