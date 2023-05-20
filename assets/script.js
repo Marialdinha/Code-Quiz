@@ -1,35 +1,34 @@
-// Creatimg questions 
+// Storing the questions 
 var myQuestions = [
 	{
 		question: "Inside which HTML element do we put the JavaScript?",
 		answers: {
-			a: "scripting",
-			b: "javascript",
-			c: "script",
-      d: "js"
-
+			1: "scripting",
+			2: "javascript",
+			3: "script",
+      4: "js"
 		},
-		correctAnswer: 'c'
+		correctAnswer: '3'
 	},
 	{
 		question: "Where is the correct place to insert a JavaScript?",
 		answers: {
-			a: 'header',
-			b: 'body',
-			c: 'head',
-      d: 'head and body'
+			1: 'header',
+			2: 'body',
+			3: 'head',
+      4: 'head and body'
 		},
-		correctAnswer: 'b'
+		correctAnswer: '2'
 	},
   {
 		question: "How do you create a function in JavaScript?",
 		answers: {
-			a: 'function myFunction()',
-			b: 'function = myFunction()',
-			c: 'function: myFunction()',
-      d: 'var function(myFunction)'
+			1: 'function myFunction()',
+			2: 'function = myFunction()',
+			3: 'function: myFunction()',
+      4: 'var function(myFunction)'
 		},
-		correctAnswer: 'a'
+		correctAnswer: '1'
 	}
 ];
 
@@ -42,15 +41,31 @@ var answer1Container = document.getElementById("answer1_container");
 var answer2Container = document.getElementById("answer2_container");
 var answer3Container = document.getElementById("answer3_container");
 var answer4Container = document.getElementById("answer4_container");
+var writeWrong = document.getElementById("write-wrong");
+var quizEnd = document.getElementById("quiz-end");
+var startBtn = document.getElementById("start");
+var nextBtn = document.getElementById("next");
+var isDisplayingQuestion = false
+var timeLeft = 51;
+var i = 0;
+
+
+// INITIALIZATION
+function init(){
+  questionNav.style.display="none";
+  quizEnd.style.display="none";
+  writeWrong.style.display="none";
+  nextBtn.style.display="none";
+}
 
 // Function Countdown
 function countdown() {
-    var timeLeft = 51;
-  
+   
     // Using setInterval() method to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function () {
 
       timeLeft--;
+      // Displaying time left
       timerEl.textContent = "Timer: 00:" 
       if (timeLeft < 10) {
         timerEl.textContent =  timerEl.textContent + "0" + timeLeft;
@@ -58,7 +73,7 @@ function countdown() {
         timerEl.textContent =  timerEl.textContent + timeLeft;
       }
   
-      if(timeLeft === 0) { 
+      if(timeLeft <= 0) {  // <-checking if time is up
         clearInterval(timeInterval);
         timerEl.textContent = "Time is up";
 
@@ -67,29 +82,66 @@ function countdown() {
        }
        
     },1000);
-  }
+}
   
-  // Function StartQuiz
-  function startQuiz(){
+// Function StartQuiz
+function startQuiz(){
     countdown();
     explanation.style.display="none";
     questionNav.style.display="block";
-    
+    start.style.display="none";
 
-    for (var i = 0; i <= myQuestions.length - 1; i++) {
-        questionContainer.textContent = myQuestions[i].question
-         answer1Container.textContent = myQuestions[i].answers["a"]
-         answer2Container.textContent = myQuestions[i].answers["b"]
-         answer3Container.textContent = myQuestions[i].answers["c"]
-         answer4Container.textContent = myQuestions[i].answers["d"]
-  }
+       // DISPLAYING THE QUESTIONS
+      i = 0;
+      writeWrong.style.display="none";
+      if (i < myQuestions.length && timeLeft >0) {
+       
+         diplayQuestion()
+
+         //add event listener for answers
+         answer1Container.addEventListener("click", checkRightAnswer);  
+         answer2Container.addEventListener("click", checkRightAnswer); 
+         answer3Container.addEventListener("click", checkRightAnswer); 
+         answer4Container.addEventListener("click", checkRightAnswer); 
+         i++;
+        }else{
+          next.style.display="none";
+        }
+ 
 }
 
-  function timeIsUp(){
+function diplayQuestion(){
+        questionContainer.textContent = myQuestions[i].question
+        answer1Container.textContent = myQuestions[i].answers["1"]
+        answer2Container.textContent = myQuestions[i].answers["2"]
+        answer3Container.textContent = myQuestions[i].answers["3"]
+        answer4Container.textContent = myQuestions[i].answers["4"]
+}
 
+function checkRightAnswer(answerNumber){
+   if (answerNumber === myQuestions[i].correctAnswer){
+       writeWrong.textContent = "Good Job - Corect"
+   }else{
+       writeWrong.textContent = "Not Quite"
+       timeLeft = timeLeft -10
+   }
+   writeWrong.style.display="block";
+   nextBtn.style.display="block";
+}
+
+// FUNTION TIME IS UP
+  function timeIsUp(){
+    questionNav.style.display="none";
+    quizEnd.style.display="block";
+    nextBtn.style.display="none";
   }
 
+
+//CALLING INIT FUNCTION
+init();
+
 //add event listener for start button
-var startBtn = document.getElementById("start");
 startBtn.addEventListener("click", startQuiz);
+nextBtn.addEventListener("click", diplayQuestion);
+
 

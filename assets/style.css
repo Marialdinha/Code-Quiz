@@ -9,6 +9,7 @@ body {
    padding-left: 15%;
 }
 
+/*HEADER*/
 header {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color:var(--back_color);
@@ -17,15 +18,17 @@ header {
 }  
 
 #view_scores {
+   /* … */
     font-size: 18px;
     padding-left: 3%;
     padding-top: 18px;
     background: transparent;
     color: #ffffff;
     border: none;
-;
+
 }
 #countdown{
+   /* … */
     float: right;
     padding-right: 5%;
     padding-top: 8px;
@@ -33,6 +36,7 @@ header {
     color: #ffffff;
 }
 
+/*Main*/
 .main_box{
     background-color: rgb(212, 191, 201);
     width:auto;
@@ -47,10 +51,9 @@ header {
     font-size: 18px;
   }
 
-  #question-nav1{
-    display: none;
-  }
-
+ #box-button{
+     text-align: center;
+ }
 
   #start{
     background-color:var(--back_color);
@@ -60,6 +63,16 @@ header {
     font-size: 16px;
     margin-top: 10px;
   }
+
+  #next{
+    background-color:var(--back_color);
+    color: #ffffff;
+    height: 60px;
+    padding: 15px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
   .inside_box{
     background-color: lightgrey;
     width: 70%;
