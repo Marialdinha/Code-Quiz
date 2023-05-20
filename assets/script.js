@@ -6,7 +6,7 @@ var myQuestions = [
 			a: "scripting",
 			b: "javascript",
 			c: "script",
-      d: "js",
+      d: "js"
 
 		},
 		correctAnswer: 'c'
@@ -37,11 +37,11 @@ var myQuestions = [
 var timerEl = document.getElementById("countdown");
 var explanation = document.getElementById("quiz-explain");
 var questionNav = document.getElementById("question-nav1");
-var question = document.getElementById("question");
-var Answer1 = document.getElementById("Answer1");
-var Answer2 = document.getElementById("Answer2");
-var Answer3 = document.getElementById("Answer3");
-var Answer4 = document.getElementById("Answer4");
+var questionContainer = document.getElementById("question_container");
+var answer1Container = document.getElementById("answer1_container");
+var answer2Container = document.getElementById("answer2_container");
+var answer3Container = document.getElementById("answer3_container");
+var answer4Container = document.getElementById("answer4_container");
 
 // Function Countdown
 function countdown() {
@@ -73,13 +73,17 @@ function countdown() {
   function startQuiz(){
     countdown();
     explanation.style.display="none";
+    questionNav.style.display="block";
+    
 
     for (var i = 0; i <= myQuestions.length - 1; i++) {
-      question.textContent = myQuestions{i}
-     }
-
-    questionNav.style.display="block";
+        questionContainer.textContent = myQuestions[i].question
+         answer1Container.textContent = myQuestions[i].answers["a"]
+         answer2Container.textContent = myQuestions[i].answers["b"]
+         answer3Container.textContent = myQuestions[i].answers["c"]
+         answer4Container.textContent = myQuestions[i].answers["d"]
   }
+}
 
   function timeIsUp(){
 
