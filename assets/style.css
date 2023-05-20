@@ -1,4 +1,8 @@
 
+:root{
+  --back_color:#753f7b;
+}
+
 /*BODY*/
 body {
    width: 70%;
@@ -7,9 +11,9 @@ body {
 
 header {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: #2a607c;
-    color: #ffffff;
+    background-color:var(--back_color);
     height:60px;
+    width:auto;
 }  
 
 #view_scores {
@@ -26,16 +30,15 @@ header {
     padding-right: 5%;
     padding-top: 8px;
     font-size: 18px;
+    color: #ffffff;
 }
 
 .main_box{
-    background-color: lightgrey;
-    width: 90.5%;
-    border: 15px solid #2a607c;
+    background-color: rgb(212, 191, 201);
+    width:auto;
+    border: 15px solid var(--back_color);
     padding: 40px;
     margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 10px;
     text-align: center;
     height: auto;
   }
@@ -44,26 +47,28 @@ header {
     font-size: 18px;
   }
 
-  #Question-nav{
-    visibility: hidden;
-  }
-  #answers{
-    list-style-type: none;
+  #question-nav1{
+    display: none;
   }
 
+
   #start{
-    background-color: #2a607c;
+    background-color:var(--back_color);
     color: #ffffff;
-    height: 40px;
-    padding: 10px;
+    height: 60px;
+    padding: 20px;
     font-size: 16px;
+    margin-top: 10px;
   }
   .inside_box{
     background-color: lightgrey;
     width: 70%;
-    border: 15px solid #2a607c;
+    border: 15px solid var(--back_color);
     padding: 40px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10%;
+    margin: auto;
+  }
+
+  #answers{
+    text-align: left;
+    font-size: 16px;
   }

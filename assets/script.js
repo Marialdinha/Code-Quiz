@@ -1,11 +1,11 @@
 var timerEl = document.getElementById("countdown");
+var explanation = document.getElementById("quiz-explain")
+var question1 = document.getElementById("question-nav1")
 
 function countdown() {
-
-
-    var timeLeft = 75;
+    var timeLeft = 51;
   
-    // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    // Using setInterval() method to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function () {
 
       timeLeft--;
@@ -19,10 +19,24 @@ function countdown() {
       if(timeLeft === 0) { 
         clearInterval(timeInterval);
         timerEl.textContent = "Time is up";
+        // Calling Time Is Up function
+        timeIsUp()
        }
+       
     },1000);
   }
   
+  function startQuiz(){
+    countdown();
+    explanation.style.display="none";
+    question1.style.display="block";
+  }
+
+  function timeIsUp(){
+
+  }
+
 //add event listener for start button
 var startBtn = document.getElementById("start");
-startBtn.addEventListener("click", countdown);
+startBtn.addEventListener("click", startQuiz);
+
