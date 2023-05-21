@@ -72,3 +72,6 @@ header {
     text-align: left;
     font-size: 16px;
   }
+  #answers button{
+    background-color: rgb(175, 175, 175);
+  }

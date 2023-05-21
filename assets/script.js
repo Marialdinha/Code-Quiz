@@ -1,4 +1,4 @@
-// Storing the questions 
+// questions
 var myQuestions = [
 	{
 		question: "Inside which HTML element do we put the JavaScript?",
@@ -29,10 +29,30 @@ var myQuestions = [
       4: "var function(myFunction)"
 		},
 		correctAnswer: 1
+	},
+  {
+		question: "Which element is not a void element in HTML?",
+		answers: {
+			1: "<br>",
+			2: "<img>",
+			3: "<hr>",
+      4: "<ol>"
+		},
+		correctAnswer: 4
+	},
+  {
+		question: "Which element is not a semantic element in HTML?",
+		answers: {
+			1: "<form>",
+			2: "<body>",
+			3: "<table>",
+      4: "<article>"
+		},
+		correctAnswer: 2
 	}
 ];
 
-// Defining variables
+// defining variables
 var timerEl = document.getElementById("countdown");
 var explanation = document.getElementById("quiz-explain");
 var questionNav = document.getElementById("question-nav1");
@@ -43,15 +63,18 @@ var answer3Btn = document.getElementById("answer3_btn");
 var answer4Btn = document.getElementById("answer4_btn");
 var writeWrong = document.getElementById("write-wrong");
 var quizEnd = document.getElementById("quiz-end");
+var finalScore = document.getElementById("final-score");
 var startBtn = document.getElementById("start");
 var nextBtn = document.getElementById("next");
+var areAllQuestionsAnswered = false
+var totalCorectAnswers  = 0;
 var answerNumber = 0;
 var timeLeft = 51;
 var i = 0;
 
 
 
-// INITIALIZATION
+// initialization
 function init(){
   questionNav.style.display="none";
   quizEnd.style.display="none";
@@ -59,7 +82,7 @@ function init(){
   nextBtn.style.display="none";
 }
 
-// Function Countdown
+// functon countdown
 function countdown() {
    
     // Using setInterval() method to call a function to be executed every 1000 milliseconds
@@ -74,12 +97,13 @@ function countdown() {
         timerEl.textContent =  timerEl.textContent + timeLeft;
       }
   
-      if(timeLeft <= 0) {  // <-checking if time is up
+       // checking if time is up or all qestions ae answerd
+      if(timeLeft <= 0 || areAllQuestionsAnswered) { 
         clearInterval(timeInterval);
         timerEl.textContent = "Time is up";
 
-        // Calling Time Is Up function
-        timeIsUp();
+        // Calling quiz finished function
+        quizFinished();
        }
        
     },1000);
@@ -92,13 +116,13 @@ function startQuiz(){
     questionNav.style.display="initial";
     startBtn.style.display="none";
 
-       // DISPLAYING THE QUESTIONS
+       // displaying the questions
       i = -1;
       displayQuestion()
      
  
 }
-// DISPLAY QUESITON FUNCTION
+// display question function
 function displayQuestion(){
   i++;
      if (i < myQuestions.length) {
@@ -116,7 +140,7 @@ function displayQuestion(){
         answer3Btn.textContent = myQuestions[i].answers["3"];
         answer4Btn.textContent = myQuestions[i].answers["4"];
       } else{
-        timeLeft = 0;
+        areAllQuestionsAnswered = true;
       }
 }
 
@@ -144,11 +168,12 @@ function Btn4Pessed(){
 
 function checkRightAnswer(){
    if (answerNumber === myQuestions[i].correctAnswer){
-       writeWrong.textContent = "Good Job - Correct"
+       writeWrong.textContent = "Good Job - Correct";
+       totalCorectAnswers++;
    }else{
        writeWrong.textContent = "Not Quite - The correct answer is: " 
                               + myQuestions[i].answers[myQuestions[i].correctAnswer];
-       timeLeft = timeLeft -10
+       timeLeft = timeLeft -5;
    }
    answer1Btn.disabled = true;
    answer2Btn.disabled = true;
@@ -158,18 +183,21 @@ function checkRightAnswer(){
    nextBtn.style.display="initial";
 }
 
-// FUNTION TIME IS UP
-  function timeIsUp(){
+// function quiz finished
+  function quizFinished(){
+    console.log("timeLeft " + timeLeft)
+    finalScore.textContent = "Your final score is: " + totalCorectAnswers + " correct answers";
+
     questionNav.style.display="none";
     quizEnd.style.display="initial";
     nextBtn.style.display="none";
   }
 
 
-//CALLING INIT FUNCTION
+// calling int fuction
 init();
 
-//add event listener for start button
+//add event listener to all buttons
 startBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", displayQuestion);
 answer1Btn.addEventListener("click", Btn1Pessed); 
