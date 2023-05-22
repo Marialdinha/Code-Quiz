@@ -29,8 +29,8 @@
                             <p>You have 50 seconds to answer 5 questions.</p>
                             <p>Each wrong answer will penalize you 5 seconds!</p>
                         </section>
-                        <nav id="question-nav1">
-                            <p id="question_container"></p>
+                        <nav id="question-nav">
+                            <p id="question-container"></p>
                             <ol id="answers" type="1">
                                 <li><button id="answer1_btn"></button></li>
                                 <li><button id="answer2_btn"></button></li>
@@ -42,13 +42,15 @@
                         <section id="quiz-end">
                             <h2>All done!</h2>
                             <p id="final-score"></p>
-                            <p>Enter your initials:</p>
+                            <label id="initials-label" for="initials">Enter your initials:</label>
+                            <input type="text" id="initials-text" name="initials">
                         </section>
                     </div>
                 </section>
                 <div class="box-button">
                     <button id="start" class="btn">Start Quiz</button>
                     <button id="next" class="btn">Next</button>
+                    <button id="submit" class="btn">Submit</button>
                 </div>
             </section>
         </div>
