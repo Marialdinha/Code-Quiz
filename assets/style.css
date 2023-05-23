@@ -35,6 +35,12 @@ header {
     font-size: 18px;
     color: #ffffff;
 }
+#high-scores{
+  font-size: 24px;
+  color: #ffffff;
+  padding-top: 15px;
+  text-align: center;
+}
 
 /*Main*/
 .main_box{
@@ -51,7 +57,7 @@ header {
     font-size: 18px;
   }
 
-  #start, #next, #submit{
+  #start, #next, #submit, #go-back, #clear{
     background-color:var(--back_color);
     color: #ffffff;
     height: 60px;

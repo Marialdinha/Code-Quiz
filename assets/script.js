@@ -67,6 +67,7 @@ var finalScore = document.getElementById("final-score");
 var startBtn = document.getElementById("start");
 var nextBtn = document.getElementById("next");
 var submitBtn = document.getElementById("submit");
+var ViewScoresBtn = document.getElementById("view_scores");
 var initialsEl= document.getElementById("initials-text");
 var isAllQuestionsAnswered = false;
 var totalCorectAnswers = 0;
@@ -182,27 +183,17 @@ function saveHighScore() {
 
   //making sure value is not empty
   if (initialsEntered !== ""){
-      var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
-  
+      var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+ 
       var newScore = {
           name: initialsEntered,
           score: totalCorectAnswers
       }
       
       highscores.push(newScore)
-      window.localStorage.setItem('highscores', JSON.stringify(highscores));
-      window.location.href = "highscores.html";
-
-
-      // let localStorageData = JSON.parse(localStorage.getItem('quizScore'))
-      // if (highscores != null){
-      //   highscores.push(highscores)
-      // }else{
-      //      localStorageData = []
-      //      localStorageData.push(highscores)
-      // }
-
-      //  localStorage.setItem('quizScore', JSON.stringify(localStorageData))
+      console.log(highscores);
+      localStorage.setItem('highscores', JSON.stringify(highscores));
+}
 }
 
 // calling int fuction
@@ -213,6 +204,12 @@ startBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", displayQuestion);
 submitBtn.addEventListener("click", saveHighScore);
 
+//add event lsitner to view score button
+ViewScoresBtn.addEventListener("click", function(event){
+  event.preventDefault();
+  location.href = "highscores.html";
+});
+
 //add event lsitner to all answer buttons
 for(index=1; index<=4; index++ ){
     var answerBtn = document.getElementById(`answer${index}_btn`);
@@ -220,5 +217,5 @@ for(index=1; index<=4; index++ ){
         event.preventDefault();
         let answerNumber = parseInt(event.target.getAttribute('id').split("_")[0].slice(-1));
         checkRightAnswer(answerNumber);
-})
+});
 }
