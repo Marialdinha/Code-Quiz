@@ -61,8 +61,11 @@ var questionContainer = document.getElementById("question-container");
 var writeWrong = document.getElementById("write-wrong");
 var quizEnd = document.getElementById("quiz-end");
 var finalScore = document.getElementById("final-score");
+var showHighScore = document.getElementById("show-high-score");
 var initialsEl= document.getElementById("initials-text");
 var scoreSaved = document.getElementById("score-saved");
+var highScore = document.getElementById("high-score");
+var noScore = document.getElementById("no-score");
 // buttons 
 var startBtn = document.getElementById("start");
 var nextBtn = document.getElementById("next");
@@ -82,16 +85,20 @@ function init() {
   // all not visible
   questionNav.style.display = "none";
   quizEnd.style.display = "none";
+  showHighScore.style.display = "none";
   writeWrong.style.display = "none";
   nextBtn.style.display = "none";
   submitBtn.style.display = "none";
   scoreSaved.style.display = "none";
   goBackBtn.style.display = "none";
   clearBtn.style.display = "none";
+  highScore.style.display = "none";
+  noScore.style.display = "none";
  
   // all visible
   explanation.style.display = "initial";
   startBtn.style.display = "initial";
+  viewScoresBtn.style.display = "initial";
 
   // all values
   areAllQuestionsAnswered = false;
@@ -134,6 +141,7 @@ function startQuiz() {
   explanation.style.display = "none";
   questionNav.style.display = "initial";
   startBtn.style.display = "none";
+  viewScoresBtn.disabled = true;
 
   // displaying the questions
   i = -1;
@@ -202,6 +210,7 @@ function quizFinished() {
   nextBtn.style.display = "none";
   quizEnd.style.display = "initial";
   submitBtn.style.display = "initial";
+
 }
 
 
@@ -215,33 +224,55 @@ function saveHighScore() {
       var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
  
       var newScore = {
-          name: initialsEntered,
+          name: initialsEntered.toUpperCase(),
           score: totalCorectAnswers
       }
       
       highscores.push(newScore)
-      console.log(highscores);
       localStorage.setItem('highscores', JSON.stringify(highscores));
 
       scoreSaved.style.display = "initial";
       goBackBtn.style.display = "initial";
       submitBtn.style.display = "none";
     }
+    viewScoresBtn.disabled = false;
 }  
 
 
 //  Retrieve highscore from localstorage function
 function viewHighScore() {
-
+console.log("viewHighScore"),
   quizEnd.style.display = "none";
   submitBtn.style.display = "none";
   explanation.style.display = "none";
   startBtn.style.display = "none";
   goBackBtn.style.display = "initial";
   clearBtn.style.display = "initial";
+  showHighScore.style.display = "initial";
+ 
+  var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
 
-  JSON.parse(localStorage.getItem("highscores")) || [];
+  if (highscores.length > 0) {
+      let html ="";
+      for(index = 0; index < highscores.length; index++){
+          html += '<div> '+ highscores[index].name + " score: " + highscores[index].score + '</div>'
+      }
+      highScore.innerHTML= html;
+      highScore.style.display = "initial";
+      noScore.style.display = "none";
+  }else{
+    highScore.style.display = "none";
+    noScore.style.display = "initial";
+  }
 
+}
+
+// clear local storage
+function clearStorage(){
+  localStorage.clear();
+  highScore.style.display = "none";
+  noScore.style.display = "initial";
+  showHighScore.style.display = "initial";
 }
 
 
@@ -255,6 +286,7 @@ nextBtn.addEventListener("click", displayQuestion);
 submitBtn.addEventListener("click", saveHighScore);
 goBackBtn.addEventListener("click",init);
 viewScoresBtn.addEventListener("click", viewHighScore);
+clearBtn.addEventListener("click", clearStorage);
 
 
 //add event lsitner to all answer buttons

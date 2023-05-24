@@ -35,9 +35,8 @@ header {
     font-size: 18px;
     color: #ffffff;
 }
-#high-scores{
-  font-size: 24px;
-  color: #ffffff;
+#high-score{
+  font-size: 20px;
   padding-top: 15px;
   text-align: center;
 }
@@ -84,3 +83,5 @@ header {
     /*                              width: max-content; */
     margin: 2px;
   }
+
+ 
