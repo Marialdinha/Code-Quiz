@@ -52,36 +52,55 @@ const myQuestions = [
   }
 ];
 
+
 // defining variables
 var timerEl = document.getElementById("countdown");
 var explanation = document.getElementById("quiz-explain");
 var questionNav = document.getElementById("question-nav");
 var questionContainer = document.getElementById("question-container");
-var answerBtn_1 = document.getElementById("answer1_btn");
-var answerBtn_2 = document.getElementById("answer2_btn");
-var answerBtn_3 = document.getElementById("answer3_btn");
-var answerBtn_4 = document.getElementById("answer4_btn");
 var writeWrong = document.getElementById("write-wrong");
 var quizEnd = document.getElementById("quiz-end");
 var finalScore = document.getElementById("final-score");
+var initialsEl= document.getElementById("initials-text");
+var scoreSaved = document.getElementById("score-saved");
+// buttons 
 var startBtn = document.getElementById("start");
 var nextBtn = document.getElementById("next");
 var submitBtn = document.getElementById("submit");
-var ViewScoresBtn = document.getElementById("view_scores");
-var initialsEl= document.getElementById("initials-text");
-var isAllQuestionsAnswered = false;
-var totalCorectAnswers = 0;
-var timeLeft = 51;
-var i = 0;
+var viewScoresBtn = document.getElementById("view_scores");
+var goBackBtn = document.getElementById("go-back");
+var clearBtn = document.getElementById("clear");
+// values
+var areAllQuestionsAnswered;
+var totalCorectAnswers;
+var timeLeft;
+var i;
+
 
 // initialization
 function init() {
+  // all not visible
   questionNav.style.display = "none";
   quizEnd.style.display = "none";
   writeWrong.style.display = "none";
   nextBtn.style.display = "none";
   submitBtn.style.display = "none";
+  scoreSaved.style.display = "none";
+  goBackBtn.style.display = "none";
+  clearBtn.style.display = "none";
+ 
+  // all visible
+  explanation.style.display = "initial";
+  startBtn.style.display = "initial";
+
+  // all values
+  areAllQuestionsAnswered = false;
+  timeLeft = 51;
+  totalCorectAnswers = 0;
+  initialsEl.value= "";
+  
 }
+
 
 // functon countdown
 function countdown() {
@@ -98,7 +117,7 @@ function countdown() {
     }
 
     // checking if time is up or all questions ae answerd
-    if (timeLeft <= 0 || isAllQuestionsAnswered) {
+    if (timeLeft <= 0 || areAllQuestionsAnswered) {
       clearInterval(timeInterval);
       timerEl.textContent = "Time is up";
 
@@ -108,6 +127,7 @@ function countdown() {
   }, 1000);
 }
 
+
 // Function StartQuiz
 function startQuiz() {
   countdown();
@@ -115,11 +135,11 @@ function startQuiz() {
   questionNav.style.display = "initial";
   startBtn.style.display = "none";
 
-
   // displaying the questions
   i = -1;
   displayQuestion();
 }
+
 
 // display question function
 function displayQuestion() {
@@ -129,18 +149,22 @@ function displayQuestion() {
     nextBtn.style.display = "none";
     submitBtn.style.display = "none";
 
+    // Enabling answers
     disableAnswers(false);
 
+    // Populating question and answers
     questionContainer.textContent = myQuestions[i].question;
-    answerBtn_1.textContent = myQuestions[i].answers["1"];
-    answerBtn_2.textContent = myQuestions[i].answers["2"];
-    answerBtn_3.textContent = myQuestions[i].answers["3"];
-    answerBtn_4.textContent = myQuestions[i].answers["4"];
+    for(index=1; index<=4; index++ ){
+      var answerBtn = document.getElementById(`answer${index}_btn`);
+      answerBtn.textContent  = myQuestions[i].answers[index];
+       }
   } else {
-    isAllQuestionsAnswered = true;
+    areAllQuestionsAnswered = true;
   }
 }
 
+
+// Check Right Answer function
 function checkRightAnswer(selectdAnswer) {
   if (selectdAnswer === myQuestions[i].correctAnswer) {
     writeWrong.textContent = "Good Job - Correct";
@@ -152,18 +176,22 @@ function checkRightAnswer(selectdAnswer) {
     timeLeft = timeLeft - 5;
   }
 
+  // Disabling answers
   disableAnswers(true);
 
   writeWrong.style.display = "initial";
   nextBtn.style.display = "initial";
 }
 
+
+// Disabling answers function
 function disableAnswers(btnState){   
   for(index=1; index<=4; index++ ){
     var answerBtn = document.getElementById(`answer${index}_btn`);
     answerBtn.disabled = btnState;
 }
 }
+
 
 // function quiz finished
 function quizFinished() {
@@ -176,7 +204,8 @@ function quizFinished() {
   submitBtn.style.display = "initial";
 }
 
-//  Save highscore to localstorage
+
+//  Save highscore to localstorage function
 function saveHighScore() {
   //get value of input box
   var initialsEntered = initialsEl.value.trim();
@@ -193,22 +222,40 @@ function saveHighScore() {
       highscores.push(newScore)
       console.log(highscores);
       localStorage.setItem('highscores', JSON.stringify(highscores));
-}
+
+      scoreSaved.style.display = "initial";
+      goBackBtn.style.display = "initial";
+      submitBtn.style.display = "none";
+    }
+}  
+
+
+//  Retrieve highscore from localstorage function
+function viewHighScore() {
+
+  quizEnd.style.display = "none";
+  submitBtn.style.display = "none";
+  explanation.style.display = "none";
+  startBtn.style.display = "none";
+  goBackBtn.style.display = "initial";
+  clearBtn.style.display = "initial";
+
+  JSON.parse(localStorage.getItem("highscores")) || [];
+
 }
 
-// calling int fuction
+
+// calling int fuction to start the process
 init();
 
-//add event listener to start, next and submit buttons
+
+//add event listener to start, next, goBack, viewScore and submit buttons
 startBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", displayQuestion);
 submitBtn.addEventListener("click", saveHighScore);
+goBackBtn.addEventListener("click",init);
+viewScoresBtn.addEventListener("click", viewHighScore);
 
-//add event lsitner to view score button
-ViewScoresBtn.addEventListener("click", function(event){
-  event.preventDefault();
-  location.href = "highscores.html";
-});
 
 //add event lsitner to all answer buttons
 for(index=1; index<=4; index++ ){
@@ -219,3 +266,4 @@ for(index=1; index<=4; index++ ){
         checkRightAnswer(answerNumber);
 });
 }
+

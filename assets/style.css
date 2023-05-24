@@ -80,4 +80,7 @@ header {
   }
   #answers button{
     background-color: rgb(175, 175, 175);
+    padding: 3px;
+    /*                              width: max-content; */
+    margin: 2px;
   }
