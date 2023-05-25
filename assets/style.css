@@ -18,7 +18,7 @@ header {
 }  
 
 #view_scores {
-   /* … */
+   /* 1 */
     font-size: 18px;
     padding-left: 3%;
     padding-top: 18px;
@@ -28,7 +28,7 @@ header {
 
 }
 #countdown{
-   /* … */
+   /* 2 */
     float: right;
     padding-right: 5%;
     padding-top: 8px;
@@ -80,7 +80,6 @@ header {
   #answers button{
     background-color: rgb(175, 175, 175);
     padding: 3px;
-    /*                              width: max-content; */
     margin: 2px;
   }
 

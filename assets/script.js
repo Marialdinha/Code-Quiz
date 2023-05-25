@@ -255,14 +255,17 @@ console.log("viewHighScore"),
   if (highscores.length > 0) {
       let html ="";
       for(index = 0; index < highscores.length; index++){
-          html += '<div> '+ highscores[index].name + " score: " + highscores[index].score + '</div>'
+          html += '<div> '+ highscores[index].name + " scored: " + highscores[index].score + '</div>'
       }
       highScore.innerHTML= html;
       highScore.style.display = "initial";
       noScore.style.display = "none";
+      clearBtn.style.display = "initial";
   }else{
     highScore.style.display = "none";
     noScore.style.display = "initial";
+    clearBtn.style.display = "none";
+
   }
 
 }
@@ -273,6 +276,7 @@ function clearStorage(){
   highScore.style.display = "none";
   noScore.style.display = "initial";
   showHighScore.style.display = "initial";
+  clearBtn.style.display = "none";
 }
 
 
