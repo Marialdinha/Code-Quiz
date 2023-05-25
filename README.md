@@ -15,4 +15,4 @@ This modulo features dynamically updated HTML and CSS powered by JavaScrip.<br /
  ![Web page screenshot](./assets/Quiz_Screenshot.png.png) <br /> <br /> <br />
 
 ## Link
-https://marialdinha.github.io/password-generator/
+https://marialdinha.github.io/Code-Quiz/
